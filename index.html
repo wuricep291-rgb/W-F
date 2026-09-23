@@ -32,16 +32,15 @@
     background: var(--forest);
     box-shadow: 0 0 25px rgba(0,0,0,0.6);
     position: relative;
-    overflow: hidden;
   }
 
-  /* Section Animasi Transisi Scroll */
+  /* Section Animasi Transisi Scroll Syahdu (1.8 Detik) */
   .page-section {
     position: relative;
     width: 100%;
     opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    transform: translateY(50px);
+    transition: opacity 1.8s cubic-bezier(0.25, 1, 0.5, 1), transform 1.8s cubic-bezier(0.25, 1, 0.5, 1);
   }
 
   .page-section.active {
@@ -55,35 +54,42 @@
     display: block;
   }
 
+  /* Area Halaman 5 (Agar tidak kepotong di bawah) */
+  .page-section-last {
+    position: relative;
+    background: var(--forest-dark);
+    padding-bottom: 40px; /* Memberi ruang agar tombol kirim tidak kepotong */
+  }
+
   /* Overlay Konten untuk Halaman 5 */
   .overlay-content {
     position: absolute;
-    top: 36%; /* Posisinya pas dimulai dari bawah kartu tulisan/amplop */
+    top: 34%;
     left: 50%;
     transform: translateX(-50%);
     width: 88%;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 12px;
   }
 
   /* Widget Countdown */
   .countdown-container {
-    background: rgba(20, 36, 25, 0.85);
-    backdrop-filter: blur(4px);
+    background: rgba(20, 36, 25, 0.88);
+    backdrop-filter: blur(6px);
     border: 1px solid var(--gold);
     border-radius: 12px;
-    padding: 12px 10px;
+    padding: 10px 8px;
     text-align: center;
     box-shadow: 0 4px 15px rgba(0,0,0,0.4);
   }
 
   .countdown-title {
     color: var(--gold-light);
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     font-weight: 600;
   }
 
@@ -93,30 +99,28 @@
     align-items: center;
   }
 
-  .cd-box {
-    text-align: center;
-  }
+  .cd-box { text-align: center; }
 
   .cd-number {
     color: #FFFFFF;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: bold;
     line-height: 1;
   }
 
   .cd-label {
     color: var(--gold);
-    font-size: 0.65rem;
-    margin-top: 4px;
+    font-size: 0.6rem;
+    margin-top: 3px;
     text-transform: lowercase;
   }
 
   /* RSVP & UCAPAN STYLE */
   #rsvp-section { 
-    padding: 15px; 
+    padding: 12px 14px 16px; 
     color: var(--paper); 
-    background: rgba(20, 36, 25, 0.85);
-    backdrop-filter: blur(4px);
+    background: rgba(20, 36, 25, 0.88);
+    backdrop-filter: blur(6px);
     border: 1px solid var(--gold);
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.4);
@@ -125,19 +129,19 @@
   .rsvp-title {
     text-align: center;
     color: var(--gold-light);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     letter-spacing: 0.1em;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     text-transform: uppercase;
     font-weight: 600;
   }
 
-  .form-group { margin-bottom: 10px; text-align: left; }
-  .form-group label { display: block; font-size: 0.7rem; margin-bottom: 4px; color: var(--gold-light); }
+  .form-group { margin-bottom: 8px; text-align: left; }
+  .form-group label { display: block; font-size: 0.68rem; margin-bottom: 3px; color: var(--gold-light); }
   .form-group input, .form-group select, .form-group textarea {
-    width: 100%; padding: 8px 10px; background: rgba(255,255,255,0.08);
+    width: 100%; padding: 7px 9px; background: rgba(255,255,255,0.08);
     border: 1px solid var(--gold); color: var(--paper); border-radius: 6px;
-    font-family: inherit; font-size: 0.8rem;
+    font-family: inherit; font-size: 0.78rem;
     outline: none;
   }
   .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
@@ -148,8 +152,9 @@
   .btn-submit {
     background: var(--gold); color: var(--forest-dark);
     border: none; padding: 10px 15px; font-weight: bold; cursor: pointer; width: 100%;
-    border-radius: 6px; font-size: 0.8rem; letter-spacing: 0.05em;
+    border-radius: 6px; font-size: 0.78rem; letter-spacing: 0.05em;
     transition: background 0.3s ease;
+    margin-top: 4px;
   }
   .btn-submit:hover { background: var(--gold-light); }
 
@@ -163,7 +168,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    transition: transform 0.9s cubic-bezier(0.65, 0, 0.35, 1);
+    transition: transform 1.2s cubic-bezier(0.65, 0, 0.35, 1);
   }
 
   #gate.opened {
@@ -232,6 +237,10 @@
     </div>
   </div>
 
+  <!-- HALAMAN 1: MEMPELAI & KALENDER -->
+  <div class="page-section">
+    <img src="(Gambar Halaman Mempelai).png" alt="Halaman Mempelai" class="design-img">
+  </div>
 
   <!-- HALAMAN 2: ASMARALOKA / KISAH -->
   <div class="page-section">
@@ -249,7 +258,7 @@
   </div>
 
   <!-- HALAMAN 5: PENUTUP, COUNTDOWN & RSVP PAS DI BAWAH KERTAS AMPLOP -->
-  <div class="page-section" style="position: relative;">
+  <div class="page-section page-section-last">
     <img src="5.jpg" alt="Halaman Penutup" class="design-img">
 
     <!-- Container Melayang di Atas Area Hijau Gambar 5.jpg -->
@@ -290,7 +299,7 @@
             <textarea id="f-pesan" name="pesan" rows="2" required placeholder="Tulis ucapan dan doa Anda..."></textarea>
           </div>
           <button type="submit" id="rsvp-submit" class="btn-submit">KIRIM KONFIRMASI</button>
-          <div id="rsvp-status" style="text-align:center; font-size:0.75rem; margin-top:8px; color: var(--gold-light);"></div>
+          <div id="rsvp-status" style="text-align:center; font-size:0.7rem; margin-top:6px; color: var(--gold-light);"></div>
         </form>
       </div>
 
@@ -352,7 +361,7 @@
     }
   });
 
-  // Animation Scroll
+  // Animation Scroll Syahdu & Halus (Sesuai Lagu Kekal)
   function triggerScrollAnimation() {
     const sections = document.querySelectorAll('.page-section');
     const observer = new IntersectionObserver((entries) => {

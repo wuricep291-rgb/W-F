@@ -9,6 +9,7 @@
     --forest: #1F3325;
     --forest-dark: #142419;
     --gold: #C2A366;
+    --gold-light: #E0CA98;
     --paper: #FAF7F2;
   }
 
@@ -149,6 +150,25 @@
     transform: translateX(-50%) scale(0.95);
   }
 
+  /* RSVP & UCAPAN STYLE */
+  #rsvp { 
+    padding: 30px 20px; 
+    color: var(--paper); 
+    background: var(--forest-dark);
+  }
+  .form-group { margin-bottom: 15px; text-align: left; }
+  .form-group label { display: block; font-size: 0.75rem; margin-bottom: 5px; color: var(--gold-light); }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 10px; background: rgba(255,255,255,0.1);
+    border: 1px solid var(--gold); color: var(--paper); border-radius: 4px;
+    font-family: inherit;
+  }
+  .btn-submit {
+    background: var(--gold); color: var(--forest-dark);
+    border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; width: 100%;
+    border-radius: 4px;
+  }
+
   /* Tombol Musik Floating */
   #music-btn {
     position: fixed;
@@ -174,7 +194,7 @@
 
 <div class="invitation-container">
 
-  <!-- SAMPUl DEPAN / GATE (Foto Cover) -->
+  <!-- SAMPUL DEPAN / GATE (Gambar Cover 1.jpg) -->
   <div id="gate">
     <div class="cover-wrapper">
       <img src="1.jpg" alt="Cover Undangan" class="design-img">
@@ -185,26 +205,6 @@
   <!-- HALAMAN 1: MEMPELAI & KALENDER + COUNTDOWN -->
   <div class="page-section">
     <img src="(Gambar Halaman Mempelai).png" alt="Halaman Mempelai" class="design-img">
-
-  <!-- HALAMAN 2: ASMARALOKA / KISAH -->
-  <div class="page-section">
-    <img src="2.jpg" alt="Halaman Asmaraloka" class="design-img">
-  </div>
-
-  <!-- HALAMAN 3: ACARA & REKENING GIFT -->
-  <div class="page-section">
-    <img src="3.jpg" alt="Halaman Acara & Gift" class="design-img">
-  </div>
-
-  <!-- HALAMAN 4: PENUTUP -->
-  <div class="page-section">
-    <img src="4.jpg" alt="Halaman Penutup" class="design-img">
-  </div>
-
-    <!-- HALAMAN 4: PENUTUP -->
-  <div class="page-section">
-    <img src="5.jpg" alt="Halaman Penutup" class="design-img">
-  </div>
     
     <!-- Widget Countdown Waktu -->
     <div class="countdown-overlay">
@@ -217,6 +217,27 @@
       </div>
     </div>
   </div>
+
+  <!-- HALAMAN 2: ASMARALOKA / KISAH -->
+  <div class="page-section">
+    <img src="2.jpg" alt="Halaman Asmaraloka" class="design-img">
+  </div>
+
+  <!-- HALAMAN 3: ACARA & REKENING GIFT -->
+  <div class="page-section">
+    <img src="3.jpg" alt="Halaman Acara & Gift" class="design-img">
+  </div>
+
+  <!-- HALAMAN 4: PENUTUP / DOA -->
+  <div class="page-section">
+    <img src="4.jpg" alt="Halaman Penutup" class="design-img">
+  </div>
+
+  <!-- HALAMAN 5: DESAIN LAINNYA / TAMBAHAN -->
+  <div class="page-section">
+    <img src="5.jpg" alt="Halaman Tambahan" class="design-img">
+  </div>
+
 </div>
 
 <!-- TOMBOL & MUSIK -->
@@ -247,19 +268,7 @@
 
   setInterval(updateCountdown, 1000);
   updateCountdown();
-  
-/* ============ RSVP & UCAPAN ============ */
-  #rsvp { padding: 30px 20px; color: var(--paper); }
-  .form-group { margin-bottom: 15px; text-align: left; }
-  .form-group label { display: block; font-size: 0.75rem; margin-bottom: 5px; color: var(--gold-light); }
-  .form-group input, .form-group select, .form-group textarea {
-    width: 100%; padding: 10px; background: rgba(255,255,255,0.1);
-    border: 1px solid var(--gold); color: var(--paper); border-radius: 4px;
-  }
-  .btn-submit {
-    background: var(--gold); color: var(--forest-dark);
-    border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; width: 100%;
-  }
+
   // Buka Undangan & Play Musik
   const gate = document.getElementById('gate');
   const openBtn = document.getElementById('open-btn');
@@ -280,7 +289,6 @@
       audio.pause();
     }
   });
-
 
   // Transisi Animasi Muncul Per Halaman Saat Di-scroll
   function triggerScrollAnimation() {

@@ -1,8 +1,258 @@
-<!-- HALAMAN 5: PENUTUP, COUNTDOWN & RSVP PAS DI BAWAH KERTAS AMPLOP -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Fais &amp; Wuri — Undangan Pernikahan</title>
+<style>
+  :root {
+    --forest: #1F3325;
+    --forest-dark: #142419;
+    --gold: #C2A366;
+    --gold-light: #E0CA98;
+    --paper: #FAF7F2;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--forest-dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* Container Tampilan HP */
+  .invitation-container {
+    width: 100%;
+    max-width: 480px;
+    background: var(--forest);
+    box-shadow: 0 0 25px rgba(0,0,0,0.6);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Section Animasi Transisi Scroll */
+  .page-section {
+    position: relative;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+
+  .page-section.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .design-img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Overlay Konten untuk Halaman 5 */
+  .overlay-content {
+    position: absolute;
+    top: 36%; /* Posisinya pas dimulai dari bawah kartu tulisan/amplop */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 88%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  /* Widget Countdown */
+  .countdown-container {
+    background: rgba(20, 36, 25, 0.85);
+    backdrop-filter: blur(4px);
+    border: 1px solid var(--gold);
+    border-radius: 12px;
+    padding: 12px 10px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  }
+
+  .countdown-title {
+    color: var(--gold-light);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  .countdown-grid {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .cd-box {
+    text-align: center;
+  }
+
+  .cd-number {
+    color: #FFFFFF;
+    font-size: 1.2rem;
+    font-weight: bold;
+    line-height: 1;
+  }
+
+  .cd-label {
+    color: var(--gold);
+    font-size: 0.65rem;
+    margin-top: 4px;
+    text-transform: lowercase;
+  }
+
+  /* RSVP & UCAPAN STYLE */
+  #rsvp-section { 
+    padding: 15px; 
+    color: var(--paper); 
+    background: rgba(20, 36, 25, 0.85);
+    backdrop-filter: blur(4px);
+    border: 1px solid var(--gold);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  }
+
+  .rsvp-title {
+    text-align: center;
+    color: var(--gold-light);
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .form-group { margin-bottom: 10px; text-align: left; }
+  .form-group label { display: block; font-size: 0.7rem; margin-bottom: 4px; color: var(--gold-light); }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 8px 10px; background: rgba(255,255,255,0.08);
+    border: 1px solid var(--gold); color: var(--paper); border-radius: 6px;
+    font-family: inherit; font-size: 0.8rem;
+    outline: none;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--gold-light);
+    background: rgba(255,255,255,0.15);
+  }
+
+  .btn-submit {
+    background: var(--gold); color: var(--forest-dark);
+    border: none; padding: 10px 15px; font-weight: bold; cursor: pointer; width: 100%;
+    border-radius: 6px; font-size: 0.8rem; letter-spacing: 0.05em;
+    transition: background 0.3s ease;
+  }
+  .btn-submit:hover { background: var(--gold-light); }
+
+  /* Cover Sampul Depan / Gate */
+  #gate {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: var(--forest-dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.9s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
+  #gate.opened {
+    transform: translateY(-100%);
+    pointer-events: none;
+  }
+
+  .cover-wrapper {
+    width: 100%;
+    max-width: 480px;
+    position: relative;
+  }
+
+  .open-btn {
+    position: absolute;
+    bottom: 45px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gold);
+    color: var(--forest-dark);
+    border: none;
+    padding: 12px 30px;
+    font-weight: bold;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+
+  .open-btn:active {
+    transform: translateX(-50%) scale(0.95);
+  }
+
+  /* Tombol Musik Floating */
+  #music-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 99;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: none;
+    color: var(--forest-dark);
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  }
+</style>
+</head>
+<body>
+
+<div class="invitation-container">
+
+  <!-- SAMPUL DEPAN / GATE (1.jpg) -->
+  <div id="gate">
+    <div class="cover-wrapper">
+      <img src="1.jpg" alt="Cover Undangan" class="design-img">
+      <button class="open-btn" id="open-btn">BUKA UNDANGAN</button>
+    </div>
+  </div>
+
+
+  <!-- HALAMAN 2: ASMARALOKA / KISAH -->
+  <div class="page-section">
+    <img src="2.jpg" alt="Halaman Asmaraloka" class="design-img">
+  </div>
+
+  <!-- HALAMAN 3: ACARA & REKENING GIFT -->
+  <div class="page-section">
+    <img src="3.jpg" alt="Halaman Acara & Gift" class="design-img">
+  </div>
+
+  <!-- HALAMAN 4: DOA RESTU / ISI -->
+  <div class="page-section">
+    <img src="4.jpg" alt="Halaman Doa" class="design-img">
+  </div>
+
+  <!-- HALAMAN 5: PENUTUP, COUNTDOWN & RSVP PAS DI BAWAH KERTAS AMPLOP -->
   <div class="page-section" style="position: relative;">
     <img src="5.jpg" alt="Halaman Penutup" class="design-img">
 
-    <!-- Container Melayang di Atas Background Hijau Gambar 5.jpg -->
+    <!-- Container Melayang di Atas Area Hijau Gambar 5.jpg -->
     <div class="overlay-content">
       
       <!-- Widget Countdown -->
@@ -37,12 +287,121 @@
           </div>
           <div class="form-group">
             <label for="f-pesan">Ucapan &amp; Doa Restu</label>
-            <textarea id="f-pesan" name="pesan" rows="3" required placeholder="Tulis ucapan dan doa Anda..."></textarea>
+            <textarea id="f-pesan" name="pesan" rows="2" required placeholder="Tulis ucapan dan doa Anda..."></textarea>
           </div>
           <button type="submit" id="rsvp-submit" class="btn-submit">KIRIM KONFIRMASI</button>
-          <div id="rsvp-status" style="text-align:center; font-size:0.8rem; margin-top:10px; color: var(--gold-light);"></div>
+          <div id="rsvp-status" style="text-align:center; font-size:0.75rem; margin-top:8px; color: var(--gold-light);"></div>
         </form>
       </div>
 
     </div>
   </div>
+
+</div>
+
+<!-- TOMBOL & MUSIK -->
+<button id="music-btn">🎵</button>
+<audio id="bg-audio" loop>
+  <source src="Nadin_Amizah_-_Kekal_(mp3.pm).mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  // Script Google Apps Script milikmu
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzqfdP58vU-orf43z_faXqAJTjptGH76VPzKM7aTR7dM-gXJh7cvYq0QEX1IINeZN6rGw/exec";
+
+  // Tanggal Pernikahan: 19 November 2026 jam 08:00 WIB
+  const targetDate = new Date("2026-11-19T08:00:00+07:00").getTime();
+
+  function updateCountdown() {
+    const now = Date.now();
+    let diff = targetDate - now;
+    if(diff < 0) diff = 0;
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+    document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
+    document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('cd-mins').textContent = String(minutes).padStart(2, '0');
+    document.getElementById('cd-secs').textContent = String(seconds).padStart(2, '0');
+  }
+
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+
+  // Buka Undangan & Musik
+  const gate = document.getElementById('gate');
+  const openBtn = document.getElementById('open-btn');
+  const musicBtn = document.getElementById('music-btn');
+  const audio = document.getElementById('bg-audio');
+
+  openBtn.addEventListener('click', function(){
+    gate.classList.add('opened');
+    musicBtn.style.display = 'flex';
+    audio.play().catch(function(){});
+    triggerScrollAnimation();
+  });
+
+  musicBtn.addEventListener('click', function(){
+    if(audio.paused){
+      audio.play();
+    } else {
+      audio.pause();
+    }
+  });
+
+  // Animation Scroll
+  function triggerScrollAnimation() {
+    const sections = document.querySelectorAll('.page-section');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+  }
+
+  window.addEventListener('DOMContentLoaded', triggerScrollAnimation);
+
+  // Proses Kirim Form RSVP ke Google Sheets
+  const form = document.getElementById('rsvp-form');
+  const submitBtn = document.getElementById('rsvp-submit');
+  const statusEl = document.getElementById('rsvp-status');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'MENGIRIM...';
+
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      body: new FormData(form)
+    })
+    .then(res => res.json())
+    .then(data => {
+      if(data.status === 'success'){
+        statusEl.textContent = 'Terima kasih, konfirmasi Anda telah kami terima.';
+        form.reset();
+      } else {
+        statusEl.textContent = 'Gagal mengirim konfirmasi. Silakan coba lagi.';
+      }
+    })
+    .catch(() => {
+      statusEl.textContent = 'Terjadi kesalahan saat mengirim.';
+    })
+    .finally(() => {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'KIRIM KONFIRMASI';
+    });
+  });
+</script>
+
+</body>
+</html>

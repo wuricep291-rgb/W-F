@@ -201,6 +201,11 @@
     <img src="4.jpg" alt="Halaman Penutup" class="design-img">
   </div>
 
+    <!-- HALAMAN 4: PENUTUP -->
+  <div class="page-section">
+    <img src="5.jpg" alt="Halaman Penutup" class="design-img">
+  </div>
+    
     <!-- Widget Countdown Waktu -->
     <div class="countdown-overlay">
       <div class="countdown-title">Hitung Mundur Acara</div>
@@ -242,7 +247,19 @@
 
   setInterval(updateCountdown, 1000);
   updateCountdown();
-
+  
+/* ============ RSVP & UCAPAN ============ */
+  #rsvp { padding: 30px 20px; color: var(--paper); }
+  .form-group { margin-bottom: 15px; text-align: left; }
+  .form-group label { display: block; font-size: 0.75rem; margin-bottom: 5px; color: var(--gold-light); }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 10px; background: rgba(255,255,255,0.1);
+    border: 1px solid var(--gold); color: var(--paper); border-radius: 4px;
+  }
+  .btn-submit {
+    background: var(--gold); color: var(--forest-dark);
+    border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; width: 100%;
+  }
   // Buka Undangan & Play Musik
   const gate = document.getElementById('gate');
   const openBtn = document.getElementById('open-btn');
@@ -263,6 +280,7 @@
       audio.pause();
     }
   });
+
 
   // Transisi Animasi Muncul Per Halaman Saat Di-scroll
   function triggerScrollAnimation() {

@@ -70,7 +70,7 @@
   /* OVERLAY KLIK GOOGLE MAPS & CALENDAR (Gambar 3) */
   .maps-clickable-overlay {
     position: absolute;
-    top: 10%;
+    top: 3%;
     right: 5%;
     width: 42%;
     height: 35%;
@@ -90,6 +90,7 @@
     color: var(--forest-dark);
     font-size: 0.65rem;
     font-weight: bold;
+    font-family:playfair-display
     padding: 4px 8px;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.3);
@@ -102,7 +103,7 @@
   /* OVERLAY TOMBOL SALIN REKENING (Gambar 3) */
   .copy-btn-container {
     position: absolute;
-    bottom: 4%;
+    bottom: 8%;
     left: 50%;
     transform: translateX(-50%);
     width: 85%;
@@ -119,6 +120,7 @@
     padding: 6px 10px;
     font-size: 0.7rem;
     font-weight: bold;
+    font-family:playfair-display
     border-radius: 6px;
     cursor: pointer;
     box-shadow: 0 2px 6px rgba(0,0,0,0.2);
@@ -144,6 +146,7 @@
     border-radius: 20px;
     font-size: 0.8rem;
     font-weight: bold;
+    font-family:playfair-display
     z-index: 1000;
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -177,6 +180,7 @@
   .countdown-title {
     color: var(--gold-light);
     font-size: 0.7rem;
+    font-family:playfair-display
     letter-spacing: 0.12em;
     text-transform: uppercase;
     margin-bottom: 6px;
@@ -214,7 +218,7 @@
   .form-group input, .form-group select, .form-group textarea {
     width: 100%; padding: 7px 9px; background: rgba(255,255,255,0.08);
     border: 1px solid var(--gold); color: var(--paper); border-radius: 6px;
-    font-family: inherit; font-size: 0.78rem; outline: none;
+    font-family: playfair-display; font-size: 0.78rem; outline: none;
   }
 
   .btn-submit {
@@ -243,6 +247,7 @@
     transform: translateX(-50%);
     color: var(--gold-light);
     font-size: 0.85rem;
+    
     text-align: center;
     width: 80%;
   }
@@ -252,7 +257,7 @@
     transform: translateX(-50%);
     background: var(--gold); color: var(--forest-dark);
     border: none; padding: 12px 30px; font-weight: bold;
-    font-size: 0.85rem; letter-spacing: 0.05em;
+    font-family: playfair-display: font-size: 0.85rem; letter-spacing: 0.05em;
     border-radius: 25px; cursor: pointer;
     box-shadow: 0 4px 15px rgba(0,0,0,0.4);
   }
@@ -416,11 +421,17 @@
   const musicBtn = document.getElementById('music-btn');
   const audio = document.getElementById('bg-audio');
 
+  // Buka Undangan & Play Musik dari Detik ke-0.15
   openBtn.addEventListener('click', function(){
     gate.classList.add('opened');
     musicBtn.style.display = 'flex';
+    
+    // Setel waktu mulai lagu ke detik ke-10
+    audio.currentTime = 0.15;
+    
     audio.play().catch(function(){});
     triggerScrollAnimation();
+  });
   });
 
   musicBtn.addEventListener('click', function(){

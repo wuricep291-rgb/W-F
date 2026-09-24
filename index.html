@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Fais &amp; Wuri — Undangan Pernikahan</title>
+
+<!-- Meta Tag untuk Tampilan Preview di WhatsApp & Sosmed -->
+<meta property="og:title" content="Undangan Pernikahan Fais & Wuri">
+<meta property="og:description" content="Kamis, 19 November 2026 — Kami mengundang Anda untuk hadir di hari bahagia kami.">
+<meta property="og:image" content="1.jpg">
+<meta property="og:url" content="https://wuricep291-rgb.github.io/W-F/">
+
 <style>
   :root {
     --forest: #1F3325;
@@ -25,7 +32,7 @@
     overflow-x: hidden;
   }
 
-  /* Container Tampilan HP */
+  /* Container HP */
   .invitation-container {
     width: 100%;
     max-width: 480px;
@@ -34,7 +41,7 @@
     position: relative;
   }
 
-  /* Section Animasi Transisi Scroll Syahdu (1.8 Detik) */
+  /* Section Animasi Transisi Scroll Syahdu */
   .page-section {
     position: relative;
     width: 100%;
@@ -54,14 +61,97 @@
     display: block;
   }
 
-  /* Area Halaman 5 (Agar tidak kepotong di bawah) */
   .page-section-last {
     position: relative;
     background: var(--forest-dark);
-    padding-bottom: 40px; /* Memberi ruang agar tombol kirim tidak kepotong */
+    padding-bottom: 40px;
   }
 
-  /* Overlay Konten untuk Halaman 5 */
+  /* OVERLAY KLIK GOOGLE MAPS & CALENDAR (Gambar 3) */
+  .maps-clickable-overlay {
+    position: absolute;
+    top: 10%;
+    right: 5%;
+    width: 42%;
+    height: 35%;
+    cursor: pointer;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 5px;
+    gap: 4px;
+    text-decoration: none;
+  }
+
+  .action-btn-sm {
+    background: var(--gold);
+    color: var(--forest-dark);
+    font-size: 0.65rem;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.2s;
+  }
+  .action-btn-sm:active { transform: scale(0.95); }
+
+  /* OVERLAY TOMBOL SALIN REKENING (Gambar 3) */
+  .copy-btn-container {
+    position: absolute;
+    bottom: 4%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 85%;
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+  }
+
+  .btn-copy {
+    flex: 1;
+    background: var(--forest);
+    color: var(--gold-light);
+    border: 1px solid var(--gold);
+    padding: 6px 10px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    transition: all 0.2s ease;
+    text-align: center;
+  }
+
+  .btn-copy:active {
+    transform: scale(0.95);
+    background: var(--gold);
+    color: var(--forest-dark);
+  }
+
+  /* Toast Notifikasi Salin */
+  #copy-toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-100px);
+    background: var(--gold);
+    color: var(--forest-dark);
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  #copy-toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* Overlay Konten Halaman 5 */
   .overlay-content {
     position: absolute;
     top: 34%;
@@ -93,27 +183,10 @@
     font-weight: 600;
   }
 
-  .countdown-grid {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
-
+  .countdown-grid { display: flex; justify-content: space-around; align-items: center; }
   .cd-box { text-align: center; }
-
-  .cd-number {
-    color: #FFFFFF;
-    font-size: 1.1rem;
-    font-weight: bold;
-    line-height: 1;
-  }
-
-  .cd-label {
-    color: var(--gold);
-    font-size: 0.6rem;
-    margin-top: 3px;
-    text-transform: lowercase;
-  }
+  .cd-number { color: #FFFFFF; font-size: 1.1rem; font-weight: bold; line-height: 1; }
+  .cd-label { color: var(--gold); font-size: 0.6rem; margin-top: 3px; text-transform: lowercase; }
 
   /* RSVP & UCAPAN STYLE */
   #rsvp-section { 
@@ -141,125 +214,108 @@
   .form-group input, .form-group select, .form-group textarea {
     width: 100%; padding: 7px 9px; background: rgba(255,255,255,0.08);
     border: 1px solid var(--gold); color: var(--paper); border-radius: 6px;
-    font-family: inherit; font-size: 0.78rem;
-    outline: none;
-  }
-  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-    border-color: var(--gold-light);
-    background: rgba(255,255,255,0.15);
+    font-family: inherit; font-size: 0.78rem; outline: none;
   }
 
   .btn-submit {
     background: var(--gold); color: var(--forest-dark);
     border: none; padding: 10px 15px; font-weight: bold; cursor: pointer; width: 100%;
     border-radius: 6px; font-size: 0.78rem; letter-spacing: 0.05em;
-    transition: background 0.3s ease;
-    margin-top: 4px;
+    transition: background 0.3s ease; margin-top: 4px;
   }
-  .btn-submit:hover { background: var(--gold-light); }
 
-  /* Cover Sampul Depan / Gate */
+  /* Cover Gate */
   #gate {
-    position: fixed;
-    inset: 0;
-    z-index: 100;
+    position: fixed; inset: 0; z-index: 100;
     background: var(--forest-dark);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
     transition: transform 1.2s cubic-bezier(0.65, 0, 0.35, 1);
   }
 
-  #gate.opened {
-    transform: translateY(-100%);
-    pointer-events: none;
-  }
+  #gate.opened { transform: translateY(-100%); pointer-events: none; }
+  .cover-wrapper { width: 100%; max-width: 480px; position: relative; }
 
-  .cover-wrapper {
-    width: 100%;
-    max-width: 480px;
-    position: relative;
+  .guest-tag-overlay {
+    position: absolute;
+    bottom: 105px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--gold-light);
+    font-size: 0.85rem;
+    text-align: center;
+    width: 80%;
   }
 
   .open-btn {
-    position: absolute;
-    bottom: 45px;
-    left: 50%;
+    position: absolute; bottom: 45px; left: 50%;
     transform: translateX(-50%);
-    background: var(--gold);
-    color: var(--forest-dark);
-    border: none;
-    padding: 12px 30px;
-    font-weight: bold;
-    font-size: 0.85rem;
-    letter-spacing: 0.05em;
-    border-radius: 25px;
-    cursor: pointer;
+    background: var(--gold); color: var(--forest-dark);
+    border: none; padding: 12px 30px; font-weight: bold;
+    font-size: 0.85rem; letter-spacing: 0.05em;
+    border-radius: 25px; cursor: pointer;
     box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-    transition: transform 0.2s ease, background 0.2s ease;
   }
 
-  .open-btn:active {
-    transform: translateX(-50%) scale(0.95);
-  }
-
-  /* Tombol Musik Floating */
   #music-btn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 99;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: var(--gold);
-    border: none;
-    color: var(--forest-dark);
-    font-size: 1.2rem;
-    cursor: pointer;
-    display: none;
-    align-items: center;
-    justify-content: center;
+    position: fixed; bottom: 20px; right: 20px; z-index: 99;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--gold); border: none; color: var(--forest-dark);
+    font-size: 1.2rem; cursor: pointer; display: none;
+    align-items: center; justify-content: center;
     box-shadow: 0 4px 12px rgba(0,0,0,0.4);
   }
 </style>
 </head>
 <body>
 
+<div id="copy-toast">Nomor Rekening Berhasil Disalin!</div>
+
 <div class="invitation-container">
 
-  <!-- SAMPUL DEPAN / GATE (1.jpg) -->
+  <!-- COVER / GATE -->
   <div id="gate">
     <div class="cover-wrapper">
       <img src="1.jpg" alt="Cover Undangan" class="design-img">
+      <div class="guest-tag-overlay">
+        <span>Kepada Yth.</span><br>
+        <b id="guest-name-display" style="font-size: 1rem; color: #FFF;">Tamu Undangan</b>
+      </div>
       <button class="open-btn" id="open-btn">BUKA UNDANGAN</button>
     </div>
   </div>
 
-  <!-- HALAMAN 2: ASMARALOKA / KISAH -->
+
+  <!-- HALAMAN 2 -->
   <div class="page-section">
     <img src="2.jpg" alt="Halaman Asmaraloka" class="design-img">
   </div>
 
-  <!-- HALAMAN 3: ACARA & REKENING GIFT -->
-  <div class="page-section">
+  <!-- HALAMAN 3 (MAPS, CALENDAR & REKENING) -->
+  <div class="page-section" style="position: relative;">
     <img src="3.jpg" alt="Halaman Acara & Gift" class="design-img">
+
+    <div class="maps-clickable-overlay">
+      <a class="action-btn-sm" href="https://www.google.com/maps/search/?api=1&query=Jl.+Raya+Ngantru+No.73,+Darungan,+Kepuhrejo,+Kec.+Ngantru,+Kabupaten+Tulungagung,+Jawa+Timur+66252" target="_blank" rel="noopener">📍 Buka Maps</a>
+      <a class="action-btn-sm" id="cal-btn" href="#" target="_blank" rel="noopener">📅 + Kalender</a>
+    </div>
+
+    <div class="copy-btn-container">
+      <button class="btn-copy" onclick="copyToClipboard('0482139131')">📋 Salin Rek. Wuri</button>
+      <button class="btn-copy" onclick="copyToClipboard('0482332909')">📋 Salin Rek. Fais</button>
+    </div>
   </div>
 
-  <!-- HALAMAN 4: DOA RESTU / ISI -->
+  <!-- HALAMAN 4 -->
   <div class="page-section">
     <img src="4.jpg" alt="Halaman Doa" class="design-img">
   </div>
 
-  <!-- HALAMAN 5: PENUTUP, COUNTDOWN & RSVP PAS DI BAWAH KERTAS AMPLOP -->
+  <!-- HALAMAN 5 (COUNTDOWN & RSVP) -->
   <div class="page-section page-section-last">
     <img src="5.jpg" alt="Halaman Penutup" class="design-img">
 
-    <!-- Container Melayang di Atas Area Hijau Gambar 5.jpg -->
     <div class="overlay-content">
-      
-      <!-- Widget Countdown -->
       <div class="countdown-container">
         <div class="countdown-title">Hitung Mundur Acara</div>
         <div class="countdown-grid">
@@ -270,7 +326,6 @@
         </div>
       </div>
 
-      <!-- Form RSVP -->
       <div id="rsvp-section">
         <div class="rsvp-title">Konfirmasi Kehadiran</div>
         <form id="rsvp-form">
@@ -297,24 +352,38 @@
           <div id="rsvp-status" style="text-align:center; font-size:0.7rem; margin-top:6px; color: var(--gold-light);"></div>
         </form>
       </div>
-
     </div>
   </div>
 
 </div>
 
-<!-- TOMBOL & MUSIK -->
 <button id="music-btn">🎵</button>
 <audio id="bg-audio" loop>
   <source src="Nadin_Amizah_-_Kekal_(mp3.pm).mp3" type="audio/mpeg">
 </audio>
 
 <script>
-  // Script Google Apps Script milikmu
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzqfdP58vU-orf43z_faXqAJTjptGH76VPzKM7aTR7dM-gXJh7cvYq0QEX1IINeZN6rGw/exec";
 
-  // Tanggal Pernikahan: 19 November 2026 jam 08:00 WIB
+  // Tanggal Pernikahan
   const targetDate = new Date("2026-11-19T08:00:00+07:00").getTime();
+
+  // BACA NAMA TAMU DARI URL PARAMS (?to=Nama+Tamu)
+  const urlParams = new URLSearchParams(window.location.search);
+  const guestName = urlParams.get('to') || urlParams.get('nama');
+  if(guestName) {
+    const formattedName = decodeURIComponent(guestName.replace(/\+/g, ' '));
+    document.getElementById('guest-name-display').textContent = formattedName;
+    document.getElementById('f-nama').value = formattedName;
+  }
+
+  // LINK GOOGLE CALENDAR AUTOMATIC
+  const calUrl = "https://calendar.google.com/calendar/render?action=TEMPLATE"
+    + "&text=" + encodeURIComponent("Pernikahan Fais & Wuri")
+    + "&dates=20261119T010000Z/20261119T050000Z"
+    + "&details=" + encodeURIComponent("Akad & Resepsi Pernikahan Fais & Wuri.")
+    + "&location=" + encodeURIComponent("Jl. Raya Ngantru No.73, Tulungagung");
+  document.getElementById('cal-btn').href = calUrl;
 
   function updateCountdown() {
     const now = Date.now();
@@ -331,11 +400,17 @@
     document.getElementById('cd-mins').textContent = String(minutes).padStart(2, '0');
     document.getElementById('cd-secs').textContent = String(seconds).padStart(2, '0');
   }
-
   setInterval(updateCountdown, 1000);
   updateCountdown();
 
-  // Buka Undangan & Musik
+  function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+      const toast = document.getElementById('copy-toast');
+      toast.classList.add('show');
+      setTimeout(() => { toast.classList.remove('show'); }, 2500);
+    });
+  }
+
   const gate = document.getElementById('gate');
   const openBtn = document.getElementById('open-btn');
   const musicBtn = document.getElementById('music-btn');
@@ -349,32 +424,21 @@
   });
 
   musicBtn.addEventListener('click', function(){
-    if(audio.paused){
-      audio.play();
-    } else {
-      audio.pause();
-    }
+    if(audio.paused){ audio.play(); } else { audio.pause(); }
   });
 
-  // Animation Scroll Syahdu & Halus (Sesuai Lagu Kekal)
   function triggerScrollAnimation() {
     const sections = document.querySelectorAll('.page-section');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if(entry.isIntersecting) {
-          entry.target.classList.add('active');
-        }
+        if(entry.isIntersecting) { entry.target.classList.add('active'); }
       });
     }, { threshold: 0.1 });
 
-    sections.forEach(section => {
-      observer.observe(section);
-    });
+    sections.forEach(section => { observer.observe(section); });
   }
-
   window.addEventListener('DOMContentLoaded', triggerScrollAnimation);
 
-  // Proses Kirim Form RSVP ke Google Sheets
   const form = document.getElementById('rsvp-form');
   const submitBtn = document.getElementById('rsvp-submit');
   const statusEl = document.getElementById('rsvp-status');
@@ -384,22 +448,15 @@
     submitBtn.disabled = true;
     submitBtn.textContent = 'MENGIRIM...';
 
-    fetch(SCRIPT_URL, {
-      method: 'POST',
-      body: new FormData(form)
-    })
+    fetch(SCRIPT_URL, { method: 'POST', body: new FormData(form) })
     .then(res => res.json())
     .then(data => {
       if(data.status === 'success'){
         statusEl.textContent = 'Terima kasih, konfirmasi Anda telah kami terima.';
         form.reset();
-      } else {
-        statusEl.textContent = 'Gagal mengirim konfirmasi. Silakan coba lagi.';
-      }
+      } else { statusEl.textContent = 'Gagal mengirim konfirmasi.'; }
     })
-    .catch(() => {
-      statusEl.textContent = 'Terjadi kesalahan saat mengirim.';
-    })
+    .catch(() => { statusEl.textContent = 'Terjadi kesalahan saat mengirim.'; })
     .finally(() => {
       submitBtn.disabled = false;
       submitBtn.textContent = 'KIRIM KONFIRMASI';
